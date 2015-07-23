@@ -1,4 +1,4 @@
-package cf.lihao.textlib;
+package cf.lihao.testlib;
 
 public class ResponseMatch extends TestLibInterface{
 

@@ -1,6 +1,6 @@
-package cf.lihao.textlib;
+package cf.lihao.testlib;
 
-import cf.lihao.textlib.TestLibInterface;
+import cf.lihao.testlib.TestLibInterface;
 
 import com.github.kevinsawicki.http.HttpRequest;
 
