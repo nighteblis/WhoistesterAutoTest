@@ -15,10 +15,10 @@ public class Parser {
 	String pattern = "(\\$\\{.+?\\})";
 	Pattern r = Pattern.compile(pattern);
 
-	public boolean parse(String script, String dic) {
+	public boolean parse(String scriptPath, String dicPath) {
 
 		// The name of the file to open.
-		String fileName = script;
+		String fileName = dicPath;
 
 		// This will reference one line at a time
 		String line = null;
@@ -32,11 +32,37 @@ public class Parser {
 
 			while ((line = bufferedReader.readLine()) != null) {
 
+				Vars.addDictionary(line.trim());
+				System.out.println(line);
+
+			}
+
+			// Always close files.
+			bufferedReader.close();
+		} catch (FileNotFoundException ex) {
+			System.out.println("Unable to open file '" + fileName + "'");
+		} catch (IOException ex) {
+			System.out.println("Error reading file '" + fileName + "'");
+			// Or we could just do this:
+			// ex.printStackTrace();
+		}
+
+		fileName = scriptPath;
+		line = null;
+		try {
+			// FileReader reads text files in the default encoding.
+			FileReader fileReader = new FileReader(fileName);
+
+			// Always wrap FileReader in BufferedReader.
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+			while ((line = bufferedReader.readLine()) != null) {
+
 				if (line.startsWith(";")) {
 
 					int index = line.indexOf('=');
-					Vars.putKey(line.substring(1, index),
-							line.substring(index + 1));
+					Vars.putKey(line.substring(1, index).trim(), line
+							.substring(index + 1).trim());
 
 				}
 
@@ -63,7 +89,24 @@ public class Parser {
 
 					if (firsta.length > 1) {
 						System.out.println(firsta.length);
-						new HttpNormalRequest().execute(firsta);
+
+						if (firsta[0].equals("httpget")) {
+							new HttpNormalRequest().execute(firsta);
+
+						} else if (firsta[0].equals("httppost")) {
+							new HttpNormalRequest().execute(firsta);
+
+						} else if (firsta[0].equals("httpmultipost")) {
+							new HttpNormalRequest().execute(firsta);
+
+						} else if (firsta[0].equals("httpmiscget")) {
+							new HttpMiscRequest().execute(firsta);
+
+						} else if (firsta[0].equals("httpmiscpost")) {
+							new HttpMiscRequest().execute(firsta);
+
+						}
+
 					}
 
 				}
@@ -84,6 +127,4 @@ public class Parser {
 		return false;
 	}
 
-
-	
 }
