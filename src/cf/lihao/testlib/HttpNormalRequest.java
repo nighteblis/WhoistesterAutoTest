@@ -12,6 +12,12 @@ public class HttpNormalRequest extends TestLibInterface{
 
 	public boolean execute(String[] para)
 	{
+		
+		this.returnCode = "";
+		this.returnCookie = "";
+		this.returnResponse = "";
+		this.returnHeader = null;
+		
 		boolean ret = false;
 		
 		if(para[0].equals("httpget"))
