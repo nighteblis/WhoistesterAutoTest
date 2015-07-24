@@ -1,0 +1,7 @@
+;ip=lihao.cf
+;port=80
+;globalvars=a=b
+
+httppost http://${ip}:${port}/test.php 1=2&2=3&${globalvars} cookie:JSESSIONID=what?; User-Agent:Mozilla/5.0
+
+
