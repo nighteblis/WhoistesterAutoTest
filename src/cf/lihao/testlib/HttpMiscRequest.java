@@ -59,7 +59,7 @@ public class HttpMiscRequest extends TestLibInterface {
 				para = oldPara.toString().split("\\s+");
 				para[0] = "httpget";
 				System.out.println("======= " + i + " " + j);
-				String newParaString = reGroup(para[2].split("&"), j, i);
+				String newParaString = reConstructPara(para[2].split("&"), j, i);
 				para[2] = newParaString;
 				(new HttpNormalRequest()).execute(para);
 			}
@@ -92,7 +92,7 @@ public class HttpMiscRequest extends TestLibInterface {
 				para = oldPara.toString().split("\\s+");
 				para[0] = "httppost";
 				System.out.println("======= " + i + " " + j);
-				String newParaString = reGroup(para[2].split("&"), j, i);
+				String newParaString = reConstructPara(para[2].split("&"), j, i);
 				para[2] = newParaString;
 				(new HttpNormalRequest()).execute(para);
 			}
@@ -100,7 +100,7 @@ public class HttpMiscRequest extends TestLibInterface {
 	}
 
 	// regroup the parameter string
-	private String reGroup(String[] para, int paraindex, int dicindex) {
+	private String reConstructPara(String[] para, int paraindex, int dicindex) {
 
 		int length = para.length;
 		StringBuffer paraString = new StringBuffer();
