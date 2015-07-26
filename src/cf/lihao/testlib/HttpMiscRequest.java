@@ -57,6 +57,7 @@ public class HttpMiscRequest extends TestLibInterface {
 		for (int i = 0; i < diclength; i++) {
 			for (int j = 0; j < urldatalength; j++) {
 				para = oldPara.toString().split("\\s+");
+				para[0] = "httpget";
 				System.out.println("======= " + i + " " + j);
 				String newParaString = reGroup(para[2].split("&"), j, i);
 				para[2] = newParaString;
@@ -89,6 +90,7 @@ public class HttpMiscRequest extends TestLibInterface {
 		for (int i = 0; i < diclength; i++) {
 			for (int j = 0; j < urldatalength; j++) {
 				para = oldPara.toString().split("\\s+");
+				para[0] = "httppost";
 				System.out.println("======= " + i + " " + j);
 				String newParaString = reGroup(para[2].split("&"), j, i);
 				para[2] = newParaString;

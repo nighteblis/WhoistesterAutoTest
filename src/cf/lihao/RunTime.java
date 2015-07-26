@@ -14,7 +14,7 @@ public class RunTime {
 		else
 			
 		{
-			new Parser().parse(args[0],args[1]);
+			new Parser().parse(args[0],args[1],args[2]);
 			
 		}	
 	}

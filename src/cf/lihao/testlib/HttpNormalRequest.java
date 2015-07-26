@@ -1,9 +1,7 @@
 package cf.lihao.testlib;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import cf.lihao.Vars;
+import cf.lihao.report.TestReporter;
 import cf.lihao.testlib.TestLibInterface;
 
 import com.github.kevinsawicki.http.HttpRequest;
@@ -36,10 +34,11 @@ public class HttpNormalRequest extends TestLibInterface{
 		    ret = true;
 		}		
 		
-		Vars.putKey("lastResponseBody", returnResponse);
+		Vars.putKey("lastResponseBody", this.returnResponse);
 		Vars.putKey("lastReturnCode", this.returnCode);
 		Vars.putKey("lastResponseCookie", this.returnCookie);
-		
+
+		TestReporter.writeToReport( para, "returnCode: "+this.returnCode+"</br>returnCookie: "+this.returnCookie+"</br>returnResponse: "+this.returnResponse);
 		
 		return ret;
 	}
@@ -77,7 +76,7 @@ public class HttpNormalRequest extends TestLibInterface{
 		System.out.println(para[1]);
 		
 		this.returnCode = String.valueOf(request.code());
-		
+		System.out.println("return code: "+this.returnCode);
 		this.returnResponse = request.body();
 		
 		this.returnCookie = request.header("Set-Cookie");
@@ -122,7 +121,7 @@ public class HttpNormalRequest extends TestLibInterface{
 		request = request.send(para[2]);
 		
 		this.returnCode = String.valueOf(request.code());
-		
+		System.out.println("return code: "+this.returnCode);
 		this.returnResponse = request.body();
 		
 		this.returnCookie = request.header("Set-Cookie");

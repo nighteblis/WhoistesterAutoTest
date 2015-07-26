@@ -7,21 +7,29 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cf.lihao.report.TestReporter;
 import cf.lihao.testlib.HttpMiscRequest;
 import cf.lihao.testlib.HttpNormalRequest;
+import cf.lihao.testlib.ResponseMatch;
 
 public class Parser {
 
 	String pattern = "(\\$\\{.+?\\})";
 	Pattern r = Pattern.compile(pattern);
+	
+	
 
-	public boolean parse(String scriptPath, String dicPath) {
+	public boolean parse(String scriptPath, String dicPath,String reportPath) {
 
 		// The name of the file to open.
 		String fileName = dicPath;
 
 		// This will reference one line at a time
 		String line = null;
+		
+		TestReporter.writeHeaderToReport(reportPath);
+		
+		TestReporter.reportPath  = reportPath;
 
 		try {
 			// FileReader reads text files in the default encoding.
@@ -104,10 +112,12 @@ public class Parser {
 
 						} else if (firsta[0].equals("httpmiscpost")) {
 							new HttpMiscRequest().execute(firsta);
-
 						}
+					} else if (firsta[0].equals("pregmatch")) {
+						new ResponseMatch().execute(firsta);
 
 					}
+					
 
 				}
 
@@ -124,6 +134,8 @@ public class Parser {
 			// ex.printStackTrace();
 		}
 
+		TestReporter.writeFooterToReport(reportPath);
+		
 		return false;
 	}
 
