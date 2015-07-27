@@ -51,8 +51,6 @@ public class Echo extends TestLibInterface{
 	}
 	
 	
-	
-	
  public static void main(String[] params)
  
  {
@@ -61,9 +59,6 @@ public class Echo extends TestLibInterface{
 	 
 	 
  }
-	
-	
-	
-	
+
 
 }

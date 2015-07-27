@@ -15,6 +15,7 @@ import cf.lihao.testlib.Echo;
 import cf.lihao.testlib.HttpMiscRequest;
 import cf.lihao.testlib.HttpNormalRequest;
 import cf.lihao.testlib.JsonParser;
+import cf.lihao.testlib.Mysql;
 import cf.lihao.testlib.Redis;
 import cf.lihao.testlib.ResponseMatch;
 
@@ -39,7 +40,8 @@ public class Parser {
 		if (file.isFile() && file.exists()) {
 
 			try {
-				InputStreamReader insReader = new InputStreamReader(new FileInputStream(file), "UTF-8");
+				InputStreamReader insReader = new InputStreamReader(
+						new FileInputStream(file), "UTF-8");
 
 				BufferedReader bufReader = new BufferedReader(insReader);
 
@@ -57,9 +59,8 @@ public class Parser {
 				// ex.printStackTrace();
 			}
 
-		}
-		else {
-			
+		} else {
+
 			System.out.println("Error reading file '" + fileName + "'");
 		}
 
@@ -67,12 +68,10 @@ public class Parser {
 		line = null;
 
 		String delimiter = "\\s+";
-		if(scriptPath.endsWith(".csv"))
-		{
+		if (scriptPath.endsWith(".csv")) {
 			delimiter = ",";
 		}
-		
-		
+
 		try {
 			// FileReader reads text files in the default encoding.
 			FileReader fileReader = new FileReader(fileName);
@@ -87,21 +86,19 @@ public class Parser {
 					// if starts with ; , means the vars definition components
 
 					int index = line.indexOf('=');
-					Vars.putKey(line.substring(1, index).trim(), line.substring(index + 1).trim());
+					Vars.putKey(line.substring(1, index).trim(), line
+							.substring(index + 1).trim());
 					continue;
 
 				}
-				
-				else if(line.startsWith("#"))
-				{
+
+				else if (line.startsWith("#")) {
 					continue;
-				}
-				else if(line.startsWith("!"))
-				{
-					TestReporter.writeCaseHeaderToReport(reportPath,line.substring(1));
+				} else if (line.startsWith("!")) {
+					TestReporter.writeCaseHeaderToReport(reportPath,
+							line.substring(1));
 					continue;
-				}
-				else {
+				} else {
 
 					// case parser started
 
@@ -116,15 +113,24 @@ public class Parser {
 						Matcher m = r.matcher(firsta[i]);
 						// System.out.println(line);
 						while (m.find()) {
-							String tmp = m.group(1).substring(2, m.group(1).length() - 1);
-							System.out.println("\\$\\{" + tmp + "\\}" + " " + Vars.getKey(tmp) + " "
-									+ m.group(1).substring(2, m.group(1).length() - 1));
-							if(null == Vars.getKey(tmp)) 
-							
-								firsta[i] = firsta[i].replace(m.group(1), "vars_not_found");
-							
+							String tmp = m.group(1).substring(2,
+									m.group(1).length() - 1);
+							System.out.println("\\$\\{"
+									+ tmp
+									+ "\\}"
+									+ " "
+									+ Vars.getKey(tmp)
+									+ " "
+									+ m.group(1).substring(2,
+											m.group(1).length() - 1));
+							if (null == Vars.getKey(tmp))
+
+								firsta[i] = firsta[i].replace(m.group(1),
+										"vars_not_found");
+
 							else
-							firsta[i] = firsta[i].replace(m.group(1), Vars.getKey(tmp));
+								firsta[i] = firsta[i].replace(m.group(1),
+										Vars.getKey(tmp));
 
 						}
 
@@ -149,20 +155,21 @@ public class Parser {
 							new HttpMiscRequest().execute(firsta);
 						} else if (firsta[0].equals("echo")) {
 							new Echo().execute(firsta);
-						}
-						else if (firsta[0].equals("pregmatch")) {
+						} else if (firsta[0].equals("pregmatch")) {
 							new ResponseMatch().execute(firsta);
-						}
-						else if (firsta[0].startsWith("json")) {
+						} else if (firsta[0].startsWith("json")) {
 
 							new JsonParser().execute(firsta);
 
-						}
-						else if (firsta[0].startsWith("redis")) {
+						} else if (firsta[0].startsWith("redis")) {
 
 							new Redis().execute(firsta);
 
-						}						
+						} else if (firsta[0].startsWith("mysql")) {
+
+							new Mysql().execute(firsta);
+
+						}
 					}
 				}
 

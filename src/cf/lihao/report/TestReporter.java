@@ -83,7 +83,7 @@ public class TestReporter {
 		CharsetEncoder encoder = Charset.forName("UTF-8").newEncoder();
 		try( OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(reportPath, true),encoder)) {
 		    
-			out.append("<div class=\"stepwrapper\"><div class=\"step\">请求内容:</br>");
+			out.append("<div class=\"stepwrapper\"><div class=\"step\">璇锋眰鍐呭:</br>");
 			
 			int i = args.length;
 			
@@ -95,7 +95,7 @@ public class TestReporter {
 			}
 			out.append("</div>");
 			
-			out.append("<div class=\"response\">返回结果:</br>");
+			out.append("<div class=\"response\">杩斿洖缁撴灉:</br>");
 			
 			out.append(reponse);
 			out.append("</div>");
