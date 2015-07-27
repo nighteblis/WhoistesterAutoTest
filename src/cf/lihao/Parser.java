@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cf.lihao.report.TestReporter;
+import cf.lihao.testlib.Echo;
 import cf.lihao.testlib.HttpMiscRequest;
 import cf.lihao.testlib.HttpNormalRequest;
 import cf.lihao.testlib.ResponseMatch;
@@ -67,6 +68,8 @@ public class Parser {
 			while ((line = bufferedReader.readLine()) != null) {
 
 				if (line.startsWith(";")) {
+					
+					//  if starts with ; , means the vars definition components
 
 					int index = line.indexOf('=');
 					Vars.putKey(line.substring(1, index).trim(), line
@@ -75,8 +78,19 @@ public class Parser {
 				}
 
 				else {
+					
+					// case parser started
+					
+					String[] firsta = line.split("\\s+");
+					
+					
+					// not replace the all line , but for every arguments , because of the replace string may 
+					// contain the space , that will break the retrieving the arguments from the original test case line.
+					
 
-					Matcher m = r.matcher(line);
+					for (int i =0 ; i < firsta.length ; i ++)
+					{
+					Matcher m = r.matcher(firsta[i]);
 					// System.out.println(line);
 					while (m.find()) {
 						String tmp = m.group(1).substring(2,
@@ -89,14 +103,14 @@ public class Parser {
 								+ " "
 								+ m.group(1).substring(2,
 										m.group(1).length() - 1));
-						line = line.replace(m.group(1), Vars.getKey(tmp));
+						firsta[i] = firsta[i].replace(m.group(1), Vars.getKey(tmp));
 
 					}
 
-					String[] firsta = line.split("\\s+");
+					}
 
 					if (firsta.length > 1) {
-						System.out.println(firsta.length);
+						System.out.println(firsta.length+"----"+firsta[0]);
 
 						if (firsta[0].equals("httpget")) {
 							new HttpNormalRequest().execute(firsta);
@@ -112,13 +126,17 @@ public class Parser {
 
 						} else if (firsta[0].equals("httpmiscpost")) {
 							new HttpMiscRequest().execute(firsta);
-						}
-					} else if (firsta[0].equals("pregmatch")) {
+						}else if (firsta[0].equals("echo")) {
+							new Echo().execute(firsta);
+						} 
+						
+						else if (firsta[0].equals("pregmatch")) {
+   
 						new ResponseMatch().execute(firsta);
 
 					}
 					
-
+					}
 				}
 
 				// System.out.println(line);

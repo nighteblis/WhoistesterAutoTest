@@ -4,12 +4,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cf.lihao.Vars;
+import cf.lihao.report.TestReporter;
 
 public class ResponseMatch extends TestLibInterface{
 
 		
 	public boolean execute(String[] para)
 	{
+		System.out.println("matched already!");
 		
 		this.returnCode = "";
 		this.returnCookie = "";
@@ -28,6 +30,10 @@ public class ResponseMatch extends TestLibInterface{
 		Vars.putKey("lastResponseBody", this.returnResponse);
 		Vars.putKey("lastResponseCode", this.returnCode);
 		Vars.putKey("lastResponseCookie", this.returnCookie);
+		
+		TestReporter.writeToReport( para, "returnCode: "+this.returnCode+"</br>returnCookie: "+this.returnCookie+"</br>returnResponse: "+this.returnResponse);	
+		
+		
 		
 		return ret;
 	}
