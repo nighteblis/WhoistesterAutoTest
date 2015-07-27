@@ -22,9 +22,9 @@ public class Echo extends TestLibInterface{
 		    ret = true;
 		}
 		
-		Vars.putKey("lastResponseBody", this.returnResponse);
-		Vars.putKey("lastResponseCode", this.returnCode);
-		Vars.putKey("lastResponseCookie", this.returnCookie);
+		Vars.putKey("lastEchoBody", this.returnResponse);
+		Vars.putKey("lastEchoCode", this.returnCode);
+		Vars.putKey("lastEchoCookie", this.returnCookie);
 		
 		TestReporter.writeToReport( para, "returnCode: "+this.returnCode+"</br>returnCookie: "+this.returnCookie+"</br>returnResponse: "+this.returnResponse);	
 		
@@ -45,7 +45,7 @@ public class Echo extends TestLibInterface{
 		else{
 		String value = Vars.getKey(para[1]);
 		
-		this.returnResponse = value;
+		    this.returnResponse = value;
 		}
 		
 	}

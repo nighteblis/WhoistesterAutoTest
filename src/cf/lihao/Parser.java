@@ -14,6 +14,7 @@ import cf.lihao.report.TestReporter;
 import cf.lihao.testlib.Echo;
 import cf.lihao.testlib.HttpMiscRequest;
 import cf.lihao.testlib.HttpNormalRequest;
+import cf.lihao.testlib.JsonParser;
 import cf.lihao.testlib.ResponseMatch;
 
 public class Parser {
@@ -63,6 +64,14 @@ public class Parser {
 
 		fileName = scriptPath;
 		line = null;
+
+		String delimiter = "\\s+";
+		if(scriptPath.endsWith(".csv"))
+		{
+			delimiter = ",";
+		}
+		
+		
 		try {
 			// FileReader reads text files in the default encoding.
 			FileReader fileReader = new FileReader(fileName);
@@ -91,7 +100,7 @@ public class Parser {
 
 					// case parser started
 
-					String[] firsta = line.split("\\s+");
+					String[] firsta = line.split(delimiter);
 
 					// not replace the all line , but for every arguments ,
 					// because of the replace string may
@@ -136,13 +145,14 @@ public class Parser {
 						} else if (firsta[0].equals("echo")) {
 							new Echo().execute(firsta);
 						}
-
 						else if (firsta[0].equals("pregmatch")) {
-
 							new ResponseMatch().execute(firsta);
+						}
+						else if (firsta[0].startsWith("json")) {
+
+							new JsonParser().execute(firsta);
 
 						}
-
 					}
 				}
 

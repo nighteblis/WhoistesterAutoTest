@@ -44,7 +44,12 @@ public class HttpNormalRequest extends TestLibInterface {
 			return;
 		}
 
-		HttpRequest request = HttpRequest.get(para[1] + "?" + para[2]);
+		HttpRequest request = null;
+		
+		if("no".equals(para[2].trim()))
+			 request = HttpRequest.get(para[1]);
+		else
+			request = HttpRequest.get(para[1] + "?" + para[2]);
 
 		System.out.println("------ " + para[1] + "?" + para[2]);
 		// HttpRequest.proxyHost("127.0.0.1");
