@@ -54,8 +54,8 @@ public class HttpMiscRequest extends TestLibInterface {
 		System.out.println("why" + diclength + urldatalength);
 		(new HttpNormalRequest()).execute(para);
 
-		for (int i = 0; i < diclength; i++) {
-			for (int j = 0; j < urldatalength; j++) {
+		for (int j = 0; j < urldatalength; j++) {
+			for (int i = 0; i < diclength; i++) {
 				para = oldPara.toString().split("\\s+");
 				para[0] = "httpget";
 				System.out.println("======= " + i + " " + j);
@@ -87,8 +87,8 @@ public class HttpMiscRequest extends TestLibInterface {
 		System.out.println("why" + diclength + urldatalength);
 		(new HttpNormalRequest()).execute(para);
 
-		for (int i = 0; i < diclength; i++) {
-			for (int j = 0; j < urldatalength; j++) {
+		for (int j = 0; j < urldatalength; j++) {
+			for (int i = 0; i < diclength; i++) {
 				para = oldPara.toString().split("\\s+");
 				para[0] = "httppost";
 				System.out.println("======= " + i + " " + j);

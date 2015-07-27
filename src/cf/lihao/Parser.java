@@ -1,9 +1,12 @@
 package cf.lihao;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,43 +20,45 @@ public class Parser {
 
 	String pattern = "(\\$\\{.+?\\})";
 	Pattern r = Pattern.compile(pattern);
-	
-	
 
-	public boolean parse(String scriptPath, String dicPath,String reportPath) {
+	public boolean parse(String scriptPath, String dicPath, String reportPath) {
 
 		// The name of the file to open.
 		String fileName = dicPath;
 
 		// This will reference one line at a time
 		String line = null;
-		
+
 		TestReporter.writeHeaderToReport(reportPath);
-		
-		TestReporter.reportPath  = reportPath;
 
-		try {
-			// FileReader reads text files in the default encoding.
-			FileReader fileReader = new FileReader(fileName);
+		TestReporter.reportPath = reportPath;
 
-			// Always wrap FileReader in BufferedReader.
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
+		File file = new File(dicPath);
+		if (file.isFile() && file.exists()) {
 
-			while ((line = bufferedReader.readLine()) != null) {
+			try {
+				InputStreamReader insReader = new InputStreamReader(new FileInputStream(file), "UTF-8");
 
-				Vars.addDictionary(line.trim());
-				System.out.println(line);
+				BufferedReader bufReader = new BufferedReader(insReader);
 
+				String dicline = new String();
+				while ((dicline = bufReader.readLine()) != null) {
+					Vars.addDictionary(dicline.trim());
+				}
+				bufReader.close();
+				insReader.close();
 			}
 
-			// Always close files.
-			bufferedReader.close();
-		} catch (FileNotFoundException ex) {
-			System.out.println("Unable to open file '" + fileName + "'");
-		} catch (IOException ex) {
+			catch (IOException ex) {
+				System.out.println("Error reading file '" + fileName + "'");
+				// Or we could just do this:
+				// ex.printStackTrace();
+			}
+
+		}
+		else {
+			
 			System.out.println("Error reading file '" + fileName + "'");
-			// Or we could just do this:
-			// ex.printStackTrace();
 		}
 
 		fileName = scriptPath;
@@ -68,49 +73,46 @@ public class Parser {
 			while ((line = bufferedReader.readLine()) != null) {
 
 				if (line.startsWith(";")) {
-					
-					//  if starts with ; , means the vars definition components
+
+					// if starts with ; , means the vars definition components
 
 					int index = line.indexOf('=');
-					Vars.putKey(line.substring(1, index).trim(), line
-							.substring(index + 1).trim());
+					Vars.putKey(line.substring(1, index).trim(), line.substring(index + 1).trim());
+					continue;
 
+				}
+				
+				else if(line.startsWith("#"))
+				{
+					continue;
 				}
 
 				else {
-					
+
 					// case parser started
-					
+
 					String[] firsta = line.split("\\s+");
-					
-					
-					// not replace the all line , but for every arguments , because of the replace string may 
-					// contain the space , that will break the retrieving the arguments from the original test case line.
-					
 
-					for (int i =0 ; i < firsta.length ; i ++)
-					{
-					Matcher m = r.matcher(firsta[i]);
-					// System.out.println(line);
-					while (m.find()) {
-						String tmp = m.group(1).substring(2,
-								m.group(1).length() - 1);
-						System.out.println("\\$\\{"
-								+ tmp
-								+ "\\}"
-								+ " "
-								+ Vars.getKey(tmp)
-								+ " "
-								+ m.group(1).substring(2,
-										m.group(1).length() - 1));
-						firsta[i] = firsta[i].replace(m.group(1), Vars.getKey(tmp));
+					// not replace the all line , but for every arguments ,
+					// because of the replace string may
+					// contain the space , that will break the retrieving the
+					// arguments from the original test case line.
 
-					}
+					for (int i = 0; i < firsta.length; i++) {
+						Matcher m = r.matcher(firsta[i]);
+						// System.out.println(line);
+						while (m.find()) {
+							String tmp = m.group(1).substring(2, m.group(1).length() - 1);
+							System.out.println("\\$\\{" + tmp + "\\}" + " " + Vars.getKey(tmp) + " "
+									+ m.group(1).substring(2, m.group(1).length() - 1));
+							firsta[i] = firsta[i].replace(m.group(1), Vars.getKey(tmp));
+
+						}
 
 					}
 
 					if (firsta.length > 1) {
-						System.out.println(firsta.length+"----"+firsta[0]);
+						System.out.println(firsta.length + "----" + firsta[0]);
 
 						if (firsta[0].equals("httpget")) {
 							new HttpNormalRequest().execute(firsta);
@@ -126,16 +128,16 @@ public class Parser {
 
 						} else if (firsta[0].equals("httpmiscpost")) {
 							new HttpMiscRequest().execute(firsta);
-						}else if (firsta[0].equals("echo")) {
+						} else if (firsta[0].equals("echo")) {
 							new Echo().execute(firsta);
-						} 
-						
-						else if (firsta[0].equals("pregmatch")) {
-   
-						new ResponseMatch().execute(firsta);
+						}
 
-					}
-					
+						else if (firsta[0].equals("pregmatch")) {
+
+							new ResponseMatch().execute(firsta);
+
+						}
+
 					}
 				}
 
@@ -153,7 +155,7 @@ public class Parser {
 		}
 
 		TestReporter.writeFooterToReport(reportPath);
-		
+
 		return false;
 	}
 
