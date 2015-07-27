@@ -35,7 +35,7 @@ public class HttpNormalRequest extends TestLibInterface{
 		}		
 		
 		Vars.putKey("lastResponseBody", this.returnResponse);
-		Vars.putKey("lastReturnCode", this.returnCode);
+		Vars.putKey("lastResponseCode", this.returnCode);
 		Vars.putKey("lastResponseCookie", this.returnCookie);
 
 		TestReporter.writeToReport( para, "returnCode: "+this.returnCode+"</br>returnCookie: "+this.returnCookie+"</br>returnResponse: "+this.returnResponse);

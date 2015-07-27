@@ -24,6 +24,11 @@ public class ResponseMatch extends TestLibInterface{
 		    ret = true;
 		}
 		
+		
+		Vars.putKey("lastResponseBody", this.returnResponse);
+		Vars.putKey("lastResponseCode", this.returnCode);
+		Vars.putKey("lastResponseCookie", this.returnCookie);
+		
 		return ret;
 	}
 	

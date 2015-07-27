@@ -28,7 +28,7 @@ public class HttpMiscRequest extends TestLibInterface {
 		System.out.println("===misc request ===");
 
 		Vars.putKey("lastResponseBody", this.returnResponse);
-		Vars.putKey("lastReturnCode", this.returnCode);
+		Vars.putKey("lastResponseCode", this.returnCode);
 		Vars.putKey("lastResponseCookie", this.returnCookie);
 
 		return ret;
