@@ -14,8 +14,8 @@ public class TestReporter {
 	
 	public static String reportPath ="";
 	public static final String css ="<style>"
-			+ ".stepwrapper {border:1px solid #bbb;margin:5px;}"
-			+ ".step , .response {float:left;padding:5px;margin:5px 5px; border:1px solid #aaa;}"
+			+ ".stepwrapper {border:1px solid #0bb;margin:8px;background-color:#0bb;padding:8px;}"
+			+ ".step , .response {float:left;padding:5px;margin:5px 5px; border:1px solid #aaa;background-color:white;}"
 			+ ".clr {clear:both}"
 			+ ""
 			+ ""
@@ -83,7 +83,7 @@ public class TestReporter {
 		CharsetEncoder encoder = Charset.forName("UTF-8").newEncoder();
 		try( OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(reportPath, true),encoder)) {
 		    
-			out.append("<div class=\"stepwrapper\"><div class=\"step\">");
+			out.append("<div class=\"stepwrapper\"><div class=\"step\">请求内容:</br>");
 			
 			int i = args.length;
 			
@@ -95,7 +95,7 @@ public class TestReporter {
 			}
 			out.append("</div>");
 			
-			out.append("<div class=\"response\">");
+			out.append("<div class=\"response\">返回结果:</br>");
 			
 			out.append(reponse);
 			out.append("</div>");

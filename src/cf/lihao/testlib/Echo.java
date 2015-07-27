@@ -37,9 +37,16 @@ public class Echo extends TestLibInterface{
 	public void echo(String[] para)
 	{
 		
+		if(para.length > 2)
+		{
+			Vars.putKey(para[1].trim(), para[2].trim());
+			this.returnResponse = para[1]+" have setted the value "+para[2];
+		}
+		else{
 		String value = Vars.getKey(para[1]);
 		
 		this.returnResponse = value;
+		}
 		
 	}
 	

@@ -1,5 +1,8 @@
 package cf.lihao.testlib;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import cf.lihao.Vars;
 import cf.lihao.testlib.TestLibInterface;
 
@@ -60,6 +63,7 @@ public class HttpMiscRequest extends TestLibInterface {
 				para[0] = "httpget";
 				System.out.println("======= " + i + " " + j);
 				String newParaString = reConstructPara(para[2].split("&"), j, i);
+				if("".equals(newParaString)) continue;
 				para[2] = newParaString;
 				(new HttpNormalRequest()).execute(para);
 			}
@@ -93,6 +97,7 @@ public class HttpMiscRequest extends TestLibInterface {
 				para[0] = "httppost";
 				System.out.println("======= " + i + " " + j);
 				String newParaString = reConstructPara(para[2].split("&"), j, i);
+				if("".equals(newParaString)) continue;
 				para[2] = newParaString;
 				(new HttpNormalRequest()).execute(para);
 			}
@@ -105,7 +110,13 @@ public class HttpMiscRequest extends TestLibInterface {
 		int length = para.length;
 		StringBuffer paraString = new StringBuffer();
 		String[] newPara = para[paraindex].split("=");
-		newPara[1] = Vars.getDictionary(dicindex);
+		try {
+			newPara[1] = URLEncoder.encode(Vars.getDictionary(dicindex), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "";
+		}
 		para[paraindex] = newPara[0] + "=" + newPara[1];
 		System.out.println("regroup1: " + para[paraindex] + " "
 				+ Vars.getDictionary(dicindex));

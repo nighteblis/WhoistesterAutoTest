@@ -105,6 +105,11 @@ public class Parser {
 							String tmp = m.group(1).substring(2, m.group(1).length() - 1);
 							System.out.println("\\$\\{" + tmp + "\\}" + " " + Vars.getKey(tmp) + " "
 									+ m.group(1).substring(2, m.group(1).length() - 1));
+							if(null == Vars.getKey(tmp)) 
+							
+								firsta[i] = firsta[i].replace(m.group(1), "vars_not_found");
+							
+							else
 							firsta[i] = firsta[i].replace(m.group(1), Vars.getKey(tmp));
 
 						}
