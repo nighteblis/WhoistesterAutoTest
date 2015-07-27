@@ -17,7 +17,7 @@ public class TestReporter {
 			+ ".stepwrapper {border:1px solid #0bb;margin:8px;background-color:#0bb;padding:8px;}"
 			+ ".step , .response {float:left;padding:5px;margin:5px 5px; border:1px solid #aaa;background-color:white;}"
 			+ ".clr {clear:both}"
-			+ ""
+			+ ".caseHeader {width: 100%;background-color: #bbb;padding: 10px;font-size: 1.2em;font-weight: bold;}"
 			+ ""
 			+ ""
 			+ "</style>";
@@ -28,7 +28,7 @@ public class TestReporter {
 		
 	    
 			
-	    out.println("<html><head><meta charset=\"UTF-8\"><title>TestReport</title>"+css+"</head><body>"
+	    out.println("<!doctype html><html><head><meta charset=\"UTF-8\"><title>TestReport</title>"+css+"</head><body>"
 	    		+ "<h1>TestReport</h1><hr>");
 			
 		}catch (IOException e) {
@@ -110,7 +110,21 @@ public class TestReporter {
 		
 	}
 	
-	
+	public static void writeCaseHeaderToReport( String reportPath , String caseName)
+	{
+		CharsetEncoder encoder = Charset.forName("UTF-8").newEncoder();
+		try( OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(reportPath, true),encoder)) {
+		    
+			out.append("<div class=\"caseHeader\">"+caseName+"</div>");
+		
+			out.close();
+		}catch (IOException e) {
+		    //exception handling left as an exercise for the reader
+			e.printStackTrace();
+		}
+		
+		
+	}	
 	
 
 }

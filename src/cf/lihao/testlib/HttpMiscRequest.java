@@ -15,17 +15,13 @@ public class HttpMiscRequest extends TestLibInterface {
 		this.returnResponse = "";
 		this.returnHeader = null;
 
-		boolean ret = false;
-
 		if (para[0].equals("httpmiscget")) {
 			get(para);
-			ret = true;
 		} else if (para[0].equals("httpmiscpost")) {
 			post(para);
-			ret = true;
+
 		} else if (para[0].equals("httpmiscmultipost")) {
 			get(para);
-			ret = true;
 		}
 
 		System.out.println("===misc request ===");
@@ -34,7 +30,11 @@ public class HttpMiscRequest extends TestLibInterface {
 		Vars.putKey("lastResponseCode", this.returnCode);
 		Vars.putKey("lastResponseCookie", this.returnCookie);
 
-		return ret;
+		if (this.returnResponse.equals("200"))
+			return true;
+		else
+			return false;
+
 	}
 
 	public void get(String[] para) {
@@ -63,7 +63,8 @@ public class HttpMiscRequest extends TestLibInterface {
 				para[0] = "httpget";
 				System.out.println("======= " + i + " " + j);
 				String newParaString = reConstructPara(para[2].split("&"), j, i);
-				if("".equals(newParaString)) continue;
+				if ("".equals(newParaString))
+					continue;
 				para[2] = newParaString;
 				(new HttpNormalRequest()).execute(para);
 			}
@@ -97,7 +98,8 @@ public class HttpMiscRequest extends TestLibInterface {
 				para[0] = "httppost";
 				System.out.println("======= " + i + " " + j);
 				String newParaString = reConstructPara(para[2].split("&"), j, i);
-				if("".equals(newParaString)) continue;
+				if ("".equals(newParaString))
+					continue;
 				para[2] = newParaString;
 				(new HttpNormalRequest()).execute(para);
 			}
@@ -118,10 +120,8 @@ public class HttpMiscRequest extends TestLibInterface {
 			return "";
 		}
 		para[paraindex] = newPara[0] + "=" + newPara[1];
-		System.out.println("regroup1: " + para[paraindex] + " "
-				+ Vars.getDictionary(dicindex));
-		System.out.println("getting the dictionary :"
-				+ Vars.getDictionary(dicindex));
+		System.out.println("regroup1: " + para[paraindex] + " " + Vars.getDictionary(dicindex));
+		System.out.println("getting the dictionary :" + Vars.getDictionary(dicindex));
 
 		System.out.println("regroup1: " + para[0]);
 		paraString.append(para[0]);

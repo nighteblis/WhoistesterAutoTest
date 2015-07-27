@@ -15,6 +15,7 @@ import cf.lihao.testlib.Echo;
 import cf.lihao.testlib.HttpMiscRequest;
 import cf.lihao.testlib.HttpNormalRequest;
 import cf.lihao.testlib.JsonParser;
+import cf.lihao.testlib.Redis;
 import cf.lihao.testlib.ResponseMatch;
 
 public class Parser {
@@ -95,7 +96,11 @@ public class Parser {
 				{
 					continue;
 				}
-
+				else if(line.startsWith("!"))
+				{
+					TestReporter.writeCaseHeaderToReport(reportPath,line.substring(1));
+					continue;
+				}
 				else {
 
 					// case parser started
@@ -153,6 +158,11 @@ public class Parser {
 							new JsonParser().execute(firsta);
 
 						}
+						else if (firsta[0].startsWith("redis")) {
+
+							new Redis().execute(firsta);
+
+						}						
 					}
 				}
 
