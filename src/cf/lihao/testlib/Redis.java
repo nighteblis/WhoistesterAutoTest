@@ -53,8 +53,7 @@ public class Redis extends TestLibInterface{
 			
 			
 			this.returnResponse = jedis.get(para[2]);
-			
-			 
+						 
 		
 	}
 	
