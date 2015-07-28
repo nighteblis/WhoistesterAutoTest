@@ -40,7 +40,7 @@ public class JsonParser extends TestLibInterface{
 				    ret = true;
 				}	
 		
-		TestReporter.writeToReport(para, "returnCode: " + this.returnCode + "</br>returnCookie: " + this.returnCookie
+		TestReporter.writeToReport(para, "returnCode: " + this.returnCode 
 				+ "</br>returnResponse: " + this.returnResponse);	
 		return ret;
 	}

@@ -66,9 +66,12 @@ public class HttpNormalRequest extends TestLibInterface {
 				System.out.println(para[i]);
 				String[] header = para[i].split(":");
 				// headers.put(header[0], header[1]);
+				
+				if(header.length < 2) continue;
 				if (null == header[0] || header[0].equals("")) {
 					continue;
 				}
+				
 				request.header(header[0], header[1]);
 				// request.parameter(headerName, paramName)
 				System.out.println("headers here===" + header[0] + ":" + header[1]);

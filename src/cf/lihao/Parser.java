@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cf.lihao.report.TestReporter;
-import cf.lihao.testlib.Echo;
+import cf.lihao.testlib.Sleep;
 import cf.lihao.testlib.HttpMiscRequest;
 import cf.lihao.testlib.HttpNormalRequest;
 import cf.lihao.testlib.JsonParser;
@@ -154,7 +154,7 @@ public class Parser {
 						} else if (firsta[0].equals("httpmiscpost")) {
 							new HttpMiscRequest().execute(firsta);
 						} else if (firsta[0].equals("echo")) {
-							new Echo().execute(firsta);
+							new Sleep().execute(firsta);
 						} else if (firsta[0].equals("pregmatch")) {
 							new ResponseMatch().execute(firsta);
 						} else if (firsta[0].startsWith("json")) {
@@ -170,6 +170,12 @@ public class Parser {
 							new Mysql().execute(firsta);
 
 						}
+					 else if (firsta[0].startsWith("sleep")) {
+
+						System.out.println("get sleep");
+						new Sleep().execute(firsta);
+
+					}						
 					}
 				}
 

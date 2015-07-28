@@ -39,7 +39,7 @@ public class Mysql extends TestLibInterface{
 		Vars.putKey("lastResponseCode", this.returnCode);
 		Vars.putKey("lastResponseCookie", this.returnCookie);		
 		
-		TestReporter.writeToReport(para, "returnCode: " + this.returnCode + "</br>returnCookie: " + this.returnCookie
+		TestReporter.writeToReport(para, "returnCode: " + this.returnCode + "" 
 				+ "</br>returnResponse: " + this.returnResponse);
 		
 		return ret;
