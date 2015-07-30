@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import cf.lihao.report.TestReporter;
 import cf.lihao.testlib.Sleep;
+import cf.lihao.testlib.Echo;
 import cf.lihao.testlib.HttpMiscRequest;
 import cf.lihao.testlib.HttpNormalRequest;
 import cf.lihao.testlib.JsonParser;
@@ -154,7 +155,7 @@ public class Parser {
 						} else if (firsta[0].equals("httpmiscpost")) {
 							new HttpMiscRequest().execute(firsta);
 						} else if (firsta[0].equals("echo")) {
-							new Sleep().execute(firsta);
+							new Echo().execute(firsta);
 						} else if (firsta[0].equals("pregmatch")) {
 							new ResponseMatch().execute(firsta);
 						} else if (firsta[0].startsWith("json")) {
