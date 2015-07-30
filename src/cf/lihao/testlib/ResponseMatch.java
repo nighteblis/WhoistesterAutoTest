@@ -6,17 +6,13 @@ import java.util.regex.Pattern;
 import cf.lihao.Vars;
 import cf.lihao.report.TestReporter;
 
-public class ResponseMatch extends TestLibInterface{
+public class ResponseMatch extends TestLib{
 
 		
 	public boolean execute(String[] para)
 	{
 		System.out.println("matched already!");
 		
-		this.returnCode = "";
-		this.returnCookie = "";
-		this.returnResponse = "";
-		this.returnHeader = null;
 		
 		boolean ret = false;
 		
@@ -32,9 +28,7 @@ public class ResponseMatch extends TestLibInterface{
 		Vars.putKey("lastResponseCookie", this.returnCookie);
 		
 		TestReporter.writeToReport( para, "returnCode: "+this.returnCode+"</br>returnCookie: "+this.returnCookie+"</br>returnResponse: "+this.returnResponse);	
-		
-		
-		
+						
 		return ret;
 	}
 	

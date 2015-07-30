@@ -3,16 +3,12 @@ package cf.lihao.testlib;
 import cf.lihao.Vars;
 import cf.lihao.report.TestReporter;
 
-public class Sleep extends TestLibInterface{
+public class Sleep extends TestLib{
 
+	
 		
 	public boolean execute(String[] para)
-	{
-		
-		this.returnCode = "";
-		this.returnCookie = "";
-		this.returnResponse = "";
-		this.returnHeader = null;
+	{			
 		
 		boolean ret = false;
 		

@@ -11,17 +11,12 @@ import cf.lihao.Vars;
 import cf.lihao.report.TestReporter;
 import cf.lihao.util.JSONUtil;
 
-public class Mysql extends TestLibInterface{
+public class Mysql extends TestLib{
 
 		
 	public boolean execute(String[] para)
 	{
 
-		this.returnCode = "";
-		this.returnCookie = "";
-		this.returnResponse = "";
-		this.returnHeader = null;
-		
 		boolean ret = false;
 		
 		if(para[0].equals("mysql"))

@@ -2,18 +2,14 @@ package cf.lihao.testlib;
 
 import cf.lihao.Vars;
 import cf.lihao.report.TestReporter;
-import cf.lihao.testlib.TestLibInterface;
+import cf.lihao.testlib.TestLib;
 
 import com.github.kevinsawicki.http.HttpRequest;
 
-public class HttpNormalRequest extends TestLibInterface {
+public class HttpNormalRequest extends TestLib {
 
 	public boolean execute(String[] para) {
 
-		this.returnCode = "";
-		this.returnCookie = "";
-		this.returnResponse = "";
-		this.returnHeader = null;
 
 		boolean ret = false;
 

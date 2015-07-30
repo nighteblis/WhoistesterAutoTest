@@ -13,6 +13,7 @@ public class Vars {
 	
 	private static Map<String, String> vars = new HashMap<String, String>();
 	private static List<String> dictionary = new ArrayList<String>();
+	private static Map<String,String> keyword = new HashMap<String,String>();
 	
 	public static void putKey(String key ,String value)
 	{
@@ -45,4 +46,15 @@ public class Vars {
 		dictionary.add(newWord);
 	}
 
+	public static Map<String,String> getKeyword() {
+		return keyword;
+	}
+
+	public static void setKeyword(Map<String,String> keyword) {
+		Vars.keyword = keyword;
+	}
+
+	public static String getKeyword(String key) {
+		return keyword.get(key);
+	}
 }

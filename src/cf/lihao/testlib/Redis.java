@@ -4,16 +4,11 @@ import cf.lihao.Vars;
 import cf.lihao.report.TestReporter;
 import redis.clients.jedis.Jedis;
 
-public class Redis extends TestLibInterface{
+public class Redis extends TestLib{
 
 		
 	public boolean execute(String[] para)
 	{
-		
-		this.returnCode = "";
-		this.returnCookie = "";
-		this.returnResponse = "";
-		this.returnHeader = null;
 		
 		boolean ret = false;
 		

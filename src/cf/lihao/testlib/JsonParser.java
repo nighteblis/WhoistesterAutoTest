@@ -7,18 +7,12 @@ import com.nebhale.jsonpath.JsonPath;
 import cf.lihao.Vars;
 import cf.lihao.report.TestReporter;
 
-public class JsonParser extends TestLibInterface{
+public class JsonParser extends TestLib{
 
 		
 	public boolean execute(String[] para)
 	{
 		
-		System.out.println("===runnign jsonget ");
-		
-		this.returnCode = "";
-		this.returnCookie = "";
-		this.returnResponse = "";
-		this.returnHeader = null;
 		
 		boolean ret = false;
 		

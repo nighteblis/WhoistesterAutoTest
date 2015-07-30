@@ -4,16 +4,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import cf.lihao.Vars;
-import cf.lihao.testlib.TestLibInterface;
+import cf.lihao.testlib.TestLib;
 
-public class HttpMiscRequest extends TestLibInterface {
+public class HttpMiscRequest extends TestLib {
 
 	public boolean execute(String[] para) {
 
-		this.returnCode = "";
-		this.returnCookie = "";
-		this.returnResponse = "";
-		this.returnHeader = null;
 
 		if (para[0].equals("httpmiscget")) {
 			get(para);
