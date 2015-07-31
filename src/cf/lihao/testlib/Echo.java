@@ -3,7 +3,7 @@ package cf.lihao.testlib;
 import cf.lihao.Vars;
 import cf.lihao.report.TestReporter;
 
-public class Echo extends TestLib implements TestlibInterface {
+public class Echo extends TestLib implements TestLibInterface {
 
 	private final String[] description = { "sleep", "单位秒数（数字）" };
 
